@@ -60,6 +60,11 @@ extension DataSource {
     }
     
     private func getTotalPriceOfProduct(_ product:Product) -> Float? {
+        let discountedPrice: @convention(block) (Float, Float) -> Float = { price, discount in
+            price * (1 - discount)
+        }
+        jsHandler.setObject(object: discountedPrice, withName: "discountedPrice")
+        
         if let value = jsHandler.callFunction(functionName: "getTotalPriceOfProduct", withData: product, type:Product.self) {
             if value.isNumber {
                 return value.toNumber() as? Float

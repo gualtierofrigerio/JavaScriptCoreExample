@@ -14,7 +14,7 @@ function getTotalPriceOfProduct(product) {
 
 function getPriceAndDiscountOfProduct(product) {
     var discount = getDiscountForProduct(product);
-    var price = product.price * (1 - discount);
+    var price = discountedPrice(product.price, discount);
     var totalDiscount = discount * product.quantity;
     var totalPrice = price * product.quantity;
     return {"price" : totalPrice, "discount" : totalDiscount}
